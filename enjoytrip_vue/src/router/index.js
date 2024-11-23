@@ -136,7 +136,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: process.env.BASE_URL,
+  base: "http://localhost:80",
   routes,
 });
 
