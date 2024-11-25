@@ -2,7 +2,7 @@
   <div class="main" data-aos="fade-up" data-aos-duration="200">
     <!-- 왼쪽 검은색 영역 -->
     <div class="left-side" style="display: flex; flex-direction: column">
-      <div class="center-text">마실 [마실 ː ] :</div>
+      <div class="center-text">마실 [마실 ː] :</div>
       <h3 style="color: gray">이 동네 저 동네 싸 돌아다니는 행위</h3>
     </div>
 
@@ -14,7 +14,12 @@
           <h1 class="login-title text-center">M A S I L</h1>
           <b-card class="p-4 login-card">
             <!-- 로그인 실패 시 경고 메시지 -->
-            <b-alert v-if="isLoginError" show variant="danger" class="login-error">
+            <b-alert
+              v-if="isLoginError"
+              show
+              variant="danger"
+              class="login-error"
+            >
               아이디 또는 비밀번호를 확인하세요.
             </b-alert>
             <b-form>
@@ -49,7 +54,9 @@
                   class="login-input"
                 ></b-form-input>
               </b-form-group>
-              <div class="d-flex justify-content-between align-items-center mb-4">
+              <div
+                class="d-flex justify-content-between align-items-center mb-4"
+              >
                 <b-form-checkbox
                   id="checkbox-saveid"
                   v-model="saveIdCheck"
@@ -81,7 +88,9 @@
                 회원가입
               </b-button>
               <!-- 비회원으로 이용하기 텍스트 링크 -->
-              <router-link to="/attraction" class="guest-link"> 비회원으로 이용하기 </router-link>
+              <router-link to="/attraction" class="guest-link">
+                비회원으로 이용하기
+              </router-link>
             </b-form>
           </b-card>
         </div>
