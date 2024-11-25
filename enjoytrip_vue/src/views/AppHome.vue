@@ -2,7 +2,7 @@
   <div class="main" data-aos="fade-up" data-aos-duration="200">
     <!-- 왼쪽 검은색 영역 -->
     <div class="left-side" style="display: flex; flex-direction: column">
-      <div class="center-text">마실 [마실 ː ] :</div>
+      <div class="center-text">마실 [마실 ː] :</div>
       <h3 style="color: gray">이 동네 저 동네 싸 돌아다니는 행위</h3>
     </div>
 

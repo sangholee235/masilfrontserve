@@ -2,7 +2,11 @@
   <div id="attraction-header" class="text-center">
     <div id="attraction-header-select" class="container row">
       <b-col class="sm-3">
-        <b-form-select v-model="doIdx" :options="dos" @change="sigunguList"></b-form-select>
+        <b-form-select
+          v-model="doIdx"
+          :options="dos"
+          @change="sigunguList"
+        ></b-form-select>
       </b-col>
       <b-col class="sm-3">
         <b-form-select
@@ -38,7 +42,11 @@ export default {
     ...mapState("attractionStore", ["dos", "sigungus", "tourtypes"]),
   },
   methods: {
-    ...mapActions("attractionStore", ["getDo", "getSigungu", "getAttractionList"]),
+    ...mapActions("attractionStore", [
+      "getDo",
+      "getSigungu",
+      "getAttractionList",
+    ]),
     ...mapMutations("attractionStore", [
       "CLEAR_DO_LIST",
       "CLEAR_SIGUNGU_LIST",

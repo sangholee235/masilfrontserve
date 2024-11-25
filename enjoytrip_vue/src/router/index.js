@@ -136,7 +136,7 @@ const routes = [
 
 const router = new VueRouter({
   mode: "history",
-  base: "http://3.39.229.199:80",
+  // base: "http://3.39.229.199:80",
   routes,
 });
 
