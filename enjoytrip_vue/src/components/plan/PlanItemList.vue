@@ -3,12 +3,7 @@
     <div class="col-6">
       <h3>관광지 목록</h3>
 
-      <draggable
-        class="list-group"
-        :list="attractionList"
-        group="attraction"
-        @change="updateAttractionList"
-      >
+      <draggable class="list-group" :list="attractionList" group="attraction">
         <div
           class="list-group-item"
           v-for="(atr, index) in attractionList"
@@ -83,8 +78,8 @@ export default {
   },
   data() {
     return {
-      attractionList: [], // 관광지 목록
-      planList: [], // 여행 경로 목록
+      attractionList: [],
+      planList: [],
     };
   },
   computed: {
@@ -106,29 +101,19 @@ export default {
       "SET_PLAN_MARKERS",
       "CLEAR_PLAN_MARKERS",
     ]),
-
-    // 드래그 앤 드롭 후 관광지 목록 업데이트
-    updateAttractionList() {
-      this.CLEAR_PLAN_MARKERS();
-      this.SET_PLAN_MARKERS(this.planList);
-    },
-
-    // 여행경로에서 항목 삭제
     deleteItem(contentId) {
-      const index = this.planList.findIndex(
-        (atr) => atr.contentId === contentId
-      );
-      if (index !== -1) {
-        const deletedItem = this.planList.splice(index, 1)[0];
-        this.attractionList.push(deletedItem);
-        this.setPlanMarker(); // 리스트 변경 후 마커 갱신
+      for (let i = 0; i < this.planList.length; i++) {
+        if (this.planList[i].contentId === contentId) {
+          this.attractionList.push(this.planList[i]);
+          this.planList.splice(i, 1);
+          i--;
+          break;
+        }
       }
     },
-
-    // 여행경로에 마커 설정
     setPlanMarker() {
       this.CLEAR_PLAN_MARKERS();
-      this.SET_PLAN_MARKERS(this.planList); // travel list에 맞춰 마커 갱신
+      this.SET_PLAN_MARKERS(this.planList);
     },
   },
 };
