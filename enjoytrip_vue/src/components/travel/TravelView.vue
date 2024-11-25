@@ -7,8 +7,8 @@
     </b-row>
 
     <div id="travel-info-item">
-      <!-- 여행 코스 상세보기 테이블 -->
-      <table class="table table-hover">
+      <!-- 여행 코스 상세보기 테이블 (호버 없음) -->
+      <table class="table table-hover no-hover">
         <tr>
           <td class="table-header">제목</td>
           <td>{{ travelInfo.title }}</td>
@@ -33,7 +33,7 @@
         </b-col>
       </b-row>
 
-      <!-- 여행 경로 테이블 (여행 코스 상세보기와 동일한 디자인) -->
+      <!-- 여행 경로 테이블 (호버 있음) -->
       <table class="table table-hover">
         <tr
           v-for="(trm, index) in travelMarkers"
@@ -135,7 +135,6 @@ td {
 
 tr {
   background-color: rgba(255, 255, 255, 0.7);
-  cursor: pointer;
 }
 
 tr:hover {
@@ -149,5 +148,10 @@ b-col {
 
 b-row {
   margin-bottom: 20px;
+}
+
+/* 여행 코스 상세보기 테이블에 호버 제거 */
+.no-hover tr:hover {
+  background-color: transparent;
 }
 </style>
