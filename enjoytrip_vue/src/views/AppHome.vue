@@ -2,17 +2,15 @@
   <div class="main" data-aos="fade-up" data-aos-duration="200">
     <!-- 왼쪽 검은색 영역 -->
     <div class="left-side" style="display: flex; flex-direction: column">
-      <div class="center-text">마실 [마실 ː] :</div>
+      <div class="center-text">마실 [마실 ː ] :</div>
       <h3 style="color: gray">이 동네 저 동네 싸 돌아다니는 행위</h3>
     </div>
 
-    <!-- 오른쪽 영역 -->
+    <!-- 오른쪽 영역 (로그인 폼) -->
     <div class="right-side">
+      <!-- 로그인 폼을 이곳에 삽입 -->
       <b-container class="d-flex justify-content-center">
-        <div v-if="isLogin" class="login-wrapper">
-          <h1 class="text-center">이미 로그인을 함</h1>
-        </div>
-        <div v-else class="login-wrapper">
+        <div class="login-wrapper">
           <h1 class="login-title text-center">M A S I L</h1>
           <b-card class="p-4 login-card">
             <!-- 로그인 실패 시 경고 메시지 -->
