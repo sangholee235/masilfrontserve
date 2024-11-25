@@ -192,7 +192,7 @@ export default {
       this.polyline = new kakao.maps.Polyline({
         path: positions, // 선을 구성하는 좌표배열
         strokeWeight: 6, // 두께
-        strokeColor: "deeppink", // 색깔
+        strokeColor: "black", // 색깔
         strokeOpacity: 0.7, // 불투명도(1에서 0 사이의 값, 0: 투명)
         strokeStyle: "solid", // 스타일
       });
