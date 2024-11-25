@@ -112,7 +112,7 @@ export default {
         const marker = new kakao.maps.CustomOverlay({
           map: this.map,
           position: position,
-          content: `<div class="number-label">${index + 1}</div>`, // 번호를 표시
+          content: `<div class="number-label">${index + 1}번</div>`, // 번호를 표시
           yAnchor: 1,
         });
         this.customOverlays.push(marker); // 생성된 마커를 배열에 저장
