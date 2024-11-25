@@ -64,7 +64,6 @@ export default {
           var pos = new kakao.maps.LatLng(position[0], position[1]);
 
           // 커스텀 오버레이
-          // var content = `<div class ="label" style="padding: 5px; background-color: rgba(255, 255, 255, 0.75);"><span class="left"></span><span class="center">${position[4]}</span><span class="right"></span></div>`;
           var content = `<div class ="label" style="padding: 5px; background-color: rgba(255, 255, 255, 0.75);"><strong>${index++}번</strong></div>`;
           var customOverlay = new kakao.maps.CustomOverlay({
             position: pos,
@@ -72,72 +71,15 @@ export default {
           });
           this.customOverlays.push(customOverlay);
 
-          // 인포 윈도우
-          // const infoWindow = new kakao.maps.InfoWindow({
-          //   removable: false,
-          //   content: `<div style="padding:0px; background-color: rgba(255, 255, 255, 0.75);">
-          //               <p>${position[4]}</p>
-          //             </div>`,
-          // });
-
-          var imageSrc; // 마커 이미지
-          var imageSize = new kakao.maps.Size(40, 40); // 기본 마커 이미지의 크기
-          if (position[3] == 12) {
-            imageSrc = require("@/assets/img/icon/city.png"); // 관광지
-          } else if (position[3] == 14) {
-            imageSrc = require("@/assets/img/icon/cathedral.png"); // 문화시설
-          } else if (position[3] == 15) {
-            imageSrc = require("@/assets/img/icon/guitar.png"); // 행사/공연/축제
-          } else if (position[3] == 25) {
-            imageSrc = require("@/assets/img/icon/map.png"); // 여행코스
-          } else if (position[3] == 28) {
-            imageSrc = require("@/assets/img/icon/boat.png"); // 레포츠
-          } else if (position[3] == 32) {
-            imageSrc = require("@/assets/img/icon/bed.png"); // 숙박
-          } else if (position[3] == 38) {
-            imageSrc = require("@/assets/img/icon/shopping.png"); // 쇼핑
-          } else if (position[3] == 39) {
-            imageSrc = require("@/assets/img/icon/restaurant.png"); // 음식점
-          } else {
-            imageSrc = require("@/assets/img/icon/marker.png"); // 기본 마커 이미지
-            imageSize = new kakao.maps.Size(20, 30); // 기본 마커 이미지의 크기
-          }
-
-          var imageOption = { offset: new kakao.maps.Point(20, 20) }; // 마커이미지의 옵션입니다. 마커의 좌표와 일치시킬 이미지 안에서의 좌표를 설정합니다.
-
-          var markerImage = new kakao.maps.MarkerImage(
-            imageSrc,
-            imageSize,
-            imageOption
-          );
-
-          var marker = new kakao.maps.Marker({
-            map: this.map,
-            position: pos,
-            clickable: true, // 마커 클릭 가능
-            image: markerImage,
-          });
-
-          customOverlay.setMap(this.map);
-          // 마커 mouseover 이벤트
-          // kakao.maps.event.addListener(marker, "mouseover", () => {
-          //   // infoWindow.open(this.map, marker);
-          //   customOverlay.setMap(this.map);
-          // });
-          // kakao.maps.event.addListener(marker, "mouseout", () => {
-          //   // infoWindow.close(this.map, marker);
-          //   customOverlay.setMap(null);
-          // });
-
-          // // 마커 클릭 이벤트
-          kakao.maps.event.addListener(marker, "click", () => {
+          // 마커 클릭 이벤트
+          kakao.maps.event.addListener(customOverlay, "click", () => {
             // 마커 클릭시 위치 상세 정보 팝업 띄우기
             this.getAttraction(position[2]);
             this.map.panTo(new kakao.maps.LatLng(position[0], position[1]));
             this.modalShow = !this.modalShow;
           });
 
-          return marker;
+          return customOverlay;
         });
         const bounds = positions.reduce(
           (bounds, latlng) => bounds.extend(latlng),
@@ -178,7 +120,6 @@ export default {
             latitude: this.lat,
             longitude: this.lon,
           });
-          // console.log("GeoLocation 접속위치 획득=>위도:" + this.lat + ", 경도:" + this.lon);
           this.map.panTo(new kakao.maps.LatLng(this.lat, this.lon));
         });
       }
@@ -219,15 +160,10 @@ export default {
 
 <style>
 #travel-map {
-  /* height: 95vh;
-  padding-top: 5vh; */
   height: 100%;
-  /* TODO: 배경색 수정하기 */
-  /* background-color: rgb(167, 235, 199); */
 }
 
 #map {
-  /* TODO: 지도 크기 수정하기 */
   width: 100%;
   height: 100%;
 }
