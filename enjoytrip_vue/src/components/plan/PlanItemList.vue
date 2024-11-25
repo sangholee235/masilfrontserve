@@ -3,15 +3,28 @@
     <div class="col-6">
       <h3>관광지 목록</h3>
 
-      <draggable class="list-group" :list="attractionList" group="attraction">
-        <div class="list-group-item" v-for="(atr, index) in attractionList" :key="index">
+      <draggable
+        class="list-group"
+        :list="attractionList"
+        group="attraction"
+        @change="updateAttractionList"
+      >
+        <div
+          class="list-group-item"
+          v-for="(atr, index) in attractionList"
+          :key="index"
+        >
           <div class="custom-card">
             <div class="custom-card-img">
               <img :src="atr.firstImage2" :alt="atr.title" />
             </div>
             <div class="custom-card-content">
               <div class="item-title">
-                {{ atr.title.length > 25 ? atr.title.substr(0, 25) + "..." : atr.title }}
+                {{
+                  atr.title.length > 25
+                    ? atr.title.substr(0, 25) + "..."
+                    : atr.title
+                }}
               </div>
             </div>
           </div>
@@ -21,9 +34,20 @@
 
     <div class="col-6">
       <h3>여행경로</h3>
-      <draggable class="list-group" :list="planList" group="attraction" @change="setPlanMarker">
-        <div v-if="planList.length == 0" class="empty-list">여기로 드래그해주세요</div>
-        <div class="list-group-item" v-for="(atr, index) in planList" :key="index">
+      <draggable
+        class="list-group"
+        :list="planList"
+        group="attraction"
+        @change="setPlanMarker"
+      >
+        <div v-if="planList.length == 0" class="empty-list">
+          여기로 드래그해주세요
+        </div>
+        <div
+          class="list-group-item"
+          v-for="(atr, index) in planList"
+          :key="index"
+        >
           <div class="custom-card">
             <div class="custom-card-img">
               <img :src="atr.firstImage2" :alt="atr.title" />
@@ -31,9 +55,15 @@
             <div class="custom-card-content">
               <div class="item-title">
                 <strong>{{ index + 1 }}번</strong><br />
-                {{ atr.title.length > 15 ? atr.title.substr(0, 15) + "..." : atr.title }}
+                {{
+                  atr.title.length > 15
+                    ? atr.title.substr(0, 15) + "..."
+                    : atr.title
+                }}
               </div>
-              <button class="delete-btn" @click="deleteItem(atr.contentId)">삭제</button>
+              <button class="delete-btn" @click="deleteItem(atr.contentId)">
+                삭제
+              </button>
             </div>
           </div>
         </div>
@@ -53,8 +83,8 @@ export default {
   },
   data() {
     return {
-      attractionList: [],
-      planList: [],
+      attractionList: [], // 관광지 목록
+      planList: [], // 여행 경로 목록
     };
   },
   computed: {
@@ -72,20 +102,33 @@ export default {
     this.CLEAR_PLAN_MARKERS();
   },
   methods: {
-    ...mapMutations("attractionStore", ["SET_PLAN_MARKERS", "CLEAR_PLAN_MARKERS"]),
-    deleteItem(contentId) {
-      for (let i = 0; i < this.planList.length; i++) {
-        if (this.planList[i].contentId === contentId) {
-          this.attractionList.push(this.planList[i]);
-          this.planList.splice(i, 1);
-          i--;
-          break;
-        }
-      }
-    },
-    setPlanMarker() {
+    ...mapMutations("attractionStore", [
+      "SET_PLAN_MARKERS",
+      "CLEAR_PLAN_MARKERS",
+    ]),
+
+    // 드래그 앤 드롭 후 관광지 목록 업데이트
+    updateAttractionList() {
       this.CLEAR_PLAN_MARKERS();
       this.SET_PLAN_MARKERS(this.planList);
+    },
+
+    // 여행경로에서 항목 삭제
+    deleteItem(contentId) {
+      const index = this.planList.findIndex(
+        (atr) => atr.contentId === contentId
+      );
+      if (index !== -1) {
+        const deletedItem = this.planList.splice(index, 1)[0];
+        this.attractionList.push(deletedItem);
+        this.setPlanMarker(); // 리스트 변경 후 마커 갱신
+      }
+    },
+
+    // 여행경로에 마커 설정
+    setPlanMarker() {
+      this.CLEAR_PLAN_MARKERS();
+      this.SET_PLAN_MARKERS(this.planList); // travel list에 맞춰 마커 갱신
     },
   },
 };
