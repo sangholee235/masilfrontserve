@@ -60,25 +60,16 @@ export default {
       );
       if (travelMarkers.length > 0) {
         let index = 1;
-        this.markers = travelMarkers.map((position) => {
+        this.customOverlays = travelMarkers.map((position) => {
           var pos = new kakao.maps.LatLng(position[0], position[1]);
 
-          // 커스텀 오버레이
-          var content = `<div class ="label" style="padding: 5px; background-color: rgba(255, 255, 255, 0.75);"><strong>${index++}번</strong></div>`;
+          // 번호만 표시
+          var content = `<div class="label" style="padding: 5px; background-color: rgba(255, 255, 255, 0.75);"><strong>${index++}번</strong></div>`;
           var customOverlay = new kakao.maps.CustomOverlay({
             position: pos,
             content: content,
           });
-          this.customOverlays.push(customOverlay);
-
-          // 마커 클릭 이벤트
-          kakao.maps.event.addListener(customOverlay, "click", () => {
-            // 마커 클릭시 위치 상세 정보 팝업 띄우기
-            this.getAttraction(position[2]);
-            this.map.panTo(new kakao.maps.LatLng(position[0], position[1]));
-            this.modalShow = !this.modalShow;
-          });
-
+          customOverlay.setMap(this.map);
           return customOverlay;
         });
         const bounds = positions.reduce(
@@ -120,6 +111,7 @@ export default {
             latitude: this.lat,
             longitude: this.lon,
           });
+          // console.log("GeoLocation 접속위치 획득=>위도:" + this.lat + ", 경도:" + this.lon);
           this.map.panTo(new kakao.maps.LatLng(this.lat, this.lon));
         });
       }
@@ -166,5 +158,12 @@ export default {
 #map {
   width: 100%;
   height: 100%;
+}
+
+.label {
+  font-size: 16px;
+  color: #000;
+  font-weight: bold;
+  text-align: center;
 }
 </style>
