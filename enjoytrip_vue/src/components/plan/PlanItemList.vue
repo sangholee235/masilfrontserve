@@ -87,7 +87,7 @@ export default {
   },
   watch: {
     attractions: function (attractions) {
-      this.attractionList = attractions;
+      this.attractionList = this.removeDuplicates(attractions);
     },
     planList: function () {
       this.setPlanMarker();
@@ -104,7 +104,10 @@ export default {
     deleteItem(contentId) {
       for (let i = 0; i < this.planList.length; i++) {
         if (this.planList[i].contentId === contentId) {
-          this.attractionList.push(this.planList[i]);
+          // 중복 확인 후 추가
+          if (!this.attractionList.some((atr) => atr.contentId === contentId)) {
+            this.attractionList.push(this.planList[i]);
+          }
           this.planList.splice(i, 1);
           i--;
           break;
@@ -114,6 +117,16 @@ export default {
     setPlanMarker() {
       this.CLEAR_PLAN_MARKERS();
       this.SET_PLAN_MARKERS(this.planList);
+    },
+    removeDuplicates(list) {
+      const seen = new Set();
+      return list.filter((item) => {
+        if (seen.has(item.contentId)) {
+          return false;
+        }
+        seen.add(item.contentId);
+        return true;
+      });
     },
   },
 };
