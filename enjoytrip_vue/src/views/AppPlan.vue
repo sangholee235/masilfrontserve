@@ -10,11 +10,19 @@
       </div>
 
       <div class="col-auto text-center">
-        <b-button type="button" class="m-1" @click="openModal">여행코스 작성하러 가기</b-button>
+        <b-button type="button" class="m-1" @click="openModal"
+          >여행코스 작성하러 가기</b-button
+        >
       </div>
     </div>
 
-    <b-modal v-model="modalShow" title="여행코스 작성하기" hide-footer size="lg" centered>
+    <b-modal
+      v-model="modalShow"
+      title="여행코스 작성하기"
+      hide-footer
+      size="lg"
+      centered
+    >
       <b-form>
         <b-form-group id="input-group-title" label="제목 :" label-for="title">
           <b-form-input
@@ -26,7 +34,11 @@
           ></b-form-input>
         </b-form-group>
 
-        <b-form-group id="input-group-content" label="내용 :" label-for="content">
+        <b-form-group
+          id="input-group-content"
+          label="내용 :"
+          label-for="content"
+        >
           <b-form-textarea
             id="content"
             v-model="content"
@@ -37,8 +49,14 @@
         </b-form-group>
 
         <div class="col-auto text-center">
-          <b-button type="button" @click="onSubmit" variant="primary">작성하기</b-button>
-          <b-button type="button" @click="onAiRequest" variant="primary" style="margin-left: 5px"
+          <b-button type="button" @click="onSubmit" variant="primary"
+            >작성하기</b-button
+          >
+          <b-button
+            type="button"
+            @click="onAiRequest"
+            variant="primary"
+            style="margin-left: 5px"
             >AI 요청하기</b-button
           >
         </div>
@@ -89,16 +107,22 @@ export default {
     checkValue() {
       let err = true;
       let msg = "";
-      !this.title && ((msg = "제목을 입력해주세요"), (err = false), this.$refs.title.focus());
+      !this.title &&
+        ((msg = "제목을 입력해주세요"),
+        (err = false),
+        this.$refs.title.focus());
       err &&
         !this.content &&
-        ((msg = "내용을 입력해주세요"), (err = false), this.$refs.content.focus());
+        ((msg = "내용을 입력해주세요"),
+        (err = false),
+        this.$refs.content.focus());
 
       if (!err) alert(msg);
       else this.doWritePlan();
     },
     doWritePlan() {
-      http.defaults.headers["refresh-token"] = sessionStorage.getItem("refresh-token");
+      http.defaults.headers["refresh-token"] =
+        sessionStorage.getItem("refresh-token");
 
       let planDetailList = [];
       this.planMarkers.forEach((item, index) => {
@@ -132,7 +156,8 @@ export default {
         });
     },
     onAiRequest() {
-      const routeList = "으능정이 스카이로드, 성심당, 식장산 전망대, 유성온천스파텔";
+      // planMarkers에서 title만 추출하여 routeList에 담기
+      const routeList = this.planMarkers.map((item) => item[4]); // item[0]이 title이라고 가정
 
       http
         .post("/ai", { routeList })
