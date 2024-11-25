@@ -5,7 +5,11 @@
     </div>
     <div id="travel-list-item">
       <table v-if="travelList.length != 0">
-        <tr v-for="(trl, index) in travelList" :key="index" @click="setTravelPlan(index)">
+        <tr
+          v-for="(trl, index) in travelList"
+          :key="index"
+          @click="setTravelPlan(index)"
+        >
           <td>
             <strong>{{ index + 1 }}</strong>
           </td>
@@ -20,6 +24,7 @@
           </td>
         </tr>
       </table>
+      <p v-else class="no-travel-list">등록된 여행 코스가 없습니다</p>
     </div>
   </div>
 </template>
@@ -110,5 +115,11 @@ strong {
 
 .header {
   margin: 20px;
+}
+
+.no-travel-list {
+  color: gray;
+  font-size: 1rem;
+  margin-top: 20px;
 }
 </style>
