@@ -2,8 +2,8 @@
   <div class="main" data-aos="fade-up" data-aos-duration="200">
     <!-- 왼쪽 검은색 영역 -->
     <div class="left-side" style="display: flex; flex-direction: column">
-      <div class="center-text">마실 [마실 ː] :</div>
-      <h3 style="color: gray">이 동네 저 동네 싸 돌아다니는 행위</h3>
+      <div class="center-text">M A S I L</div>
+      <!-- <h3 style="color: gray">이 동네 저 동네 싸 돌아다니는 행위</h3> -->
     </div>
 
     <!-- 오른쪽 영역 (로그인 폼) -->
@@ -163,7 +163,7 @@ export default {
 }
 
 .center-text {
-  font-size: 5rem; /* 큰 글씨로 텍스트 설정 */
+  font-size: 8rem; /* 큰 글씨로 텍스트 설정 */
   color: white; /* 흰색 글씨 */
   font-weight: bold;
 }
