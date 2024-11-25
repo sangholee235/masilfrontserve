@@ -11,7 +11,9 @@
       <!-- 로그인 폼을 이곳에 삽입 -->
       <b-container class="d-flex justify-content-center">
         <div v-if="userInfo">
-          <h3>{{ userInfo.userName }} 님 안녕하세요.</h3>
+          <h2 style="margin-bottom: 30px">
+            {{ userInfo.userName }} 님 안녕하세요.
+          </h2>
           <b-button
             type="button"
             variant="dark"
