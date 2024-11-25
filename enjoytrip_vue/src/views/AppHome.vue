@@ -3,14 +3,25 @@
     <!-- 왼쪽 검은색 영역 -->
     <div class="left-side" style="display: flex; flex-direction: column">
       <div class="center-text">M A S I L</div>
-      <!-- <h3 style="color: gray">이 동네 저 동네 싸 돌아다니는 행위</h3> -->
+      <h3 style="color: gray">마실 : 이웃에 놀러 다니는 일</h3>
     </div>
 
     <!-- 오른쪽 영역 (로그인 폼) -->
     <div class="right-side">
       <!-- 로그인 폼을 이곳에 삽입 -->
       <b-container class="d-flex justify-content-center">
-        <div class="login-wrapper">
+        <div v-if="userInfo">
+          <h3>{{ userInfo.userName }} 님 안녕하세요.</h3>
+          <b-button
+            type="button"
+            variant="dark"
+            class="btn-block login-button mb-3"
+            @click="goToAttraction"
+          >
+            마실 가기
+          </b-button>
+        </div>
+        <div v-else class="login-wrapper">
           <h1 class="login-title text-center">M A S I L</h1>
           <b-card class="p-4 login-card">
             <!-- 로그인 실패 시 경고 메시지 -->
@@ -136,12 +147,14 @@ export default {
           this.$cookies.remove("saveid");
         }
 
-        // 로그인 성공 시 /attraction 페이지로 이동
-        this.$router.push({ path: "/attraction" });
+        this.$router.push({ path: "/" });
       }
     },
     movePage() {
       this.$router.push({ name: "join" });
+    },
+    goToAttraction() {
+      this.$router.push({ path: "/attraction" });
     },
   },
 };
