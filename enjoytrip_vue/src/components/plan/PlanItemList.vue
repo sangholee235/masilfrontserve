@@ -104,13 +104,7 @@ export default {
     deleteItem(contentId) {
       for (let i = 0; i < this.planList.length; i++) {
         if (this.planList[i].contentId === contentId) {
-          // 중복 여부 확인 후 추가
-          const alreadyExists = this.attractionList.some(
-            (item) => item.contentId === contentId
-          );
-          if (!alreadyExists) {
-            this.attractionList.push(this.planList[i]);
-          }
+          this.attractionList.push(this.planList[i]);
           this.planList.splice(i, 1);
           i--;
           break;
