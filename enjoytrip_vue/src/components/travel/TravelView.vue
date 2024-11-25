@@ -7,6 +7,7 @@
     </b-row>
 
     <div id="travel-info-item">
+      <!-- 여행 코스 상세보기 테이블 -->
       <table class="table table-hover">
         <tr>
           <td class="table-header">제목</td>
@@ -32,20 +33,20 @@
         </b-col>
       </b-row>
 
+      <!-- 여행 경로 테이블 (여행 코스 상세보기와 동일한 디자인) -->
       <table class="table table-hover">
         <tr
           v-for="(trm, index) in travelMarkers"
           :key="index"
           @click="movePan(trm[0], trm[1])"
         >
-          <td>
+          <td class="table-header">
             <strong>{{ index + 1 }}번</strong>
           </td>
-          <td v-if="trm[4].length > 25">
-            <strong>{{ trm[4].substr(0, 25) }}...</strong>
-          </td>
-          <td v-if="trm[4].length <= 25">
-            <strong>{{ trm[4] }}</strong>
+          <td>
+            <strong>{{
+              trm[4].length > 25 ? trm[4].substr(0, 25) + "..." : trm[4]
+            }}</strong>
           </td>
         </tr>
       </table>
