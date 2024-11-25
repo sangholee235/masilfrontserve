@@ -9,7 +9,7 @@
         >
           <div v-show="menuCompact.hidden">
             <div class="sidebar-links">
-              <h1>무중단배포테스트</h1>
+              <h1>MASIL</h1>
             </div>
           </div>
         </router-link>
