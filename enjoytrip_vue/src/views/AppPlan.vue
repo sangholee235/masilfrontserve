@@ -54,11 +54,13 @@
           >
           <b-button
             type="button"
+            :disabled="isAiRequesting"
             @click="onAiRequest"
             variant="primary"
             style="margin-left: 5px"
-            >AI 요청하기</b-button
           >
+            {{ isAiRequesting ? "AI 작성 중..." : "AI 요청하기" }}
+          </b-button>
         </div>
       </b-form>
     </b-modal>
@@ -84,6 +86,7 @@ export default {
       modalShow: false,
       title: "",
       content: "",
+      isAiRequesting: false, // AI 요청 상태 플래그
     };
   },
   computed: {
@@ -156,8 +159,14 @@ export default {
         });
     },
     onAiRequest() {
-      // planMarkers에서 title만 추출하여 routeList에 담기
-      const routeList = this.planMarkers.map((item) => item[4]); // item[0]이 title이라고 가정
+      // AI 요청 상태 플래그 설정
+      this.isAiRequesting = true;
+
+      // 폼 초기화
+      this.title = "";
+      this.content = "AI가 작성 중이에요!";
+
+      const routeList = this.planMarkers.map((item) => item[4]); // item[4]가 title이라고 가정
 
       http
         .post("/ai", { routeList })
@@ -167,11 +176,16 @@ export default {
             this.content = data.content;
           } else {
             alert("AI 응답을 받지 못했습니다.");
+            this.content = "";
           }
         })
         .catch((error) => {
           console.error("AI 요청 실패:", error);
           alert("AI 요청에 실패하였습니다.");
+          this.content = "";
+        })
+        .finally(() => {
+          this.isAiRequesting = false; // AI 요청 완료
         });
     },
   },
