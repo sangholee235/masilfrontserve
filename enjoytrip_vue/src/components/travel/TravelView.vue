@@ -5,38 +5,44 @@
         <h1>여행 코스 상세보기</h1>
       </b-col>
     </b-row>
+
     <div id="travel-info-item">
       <table class="table table-hover">
         <tr>
-          <td>제목</td>
+          <td class="table-header">제목</td>
           <td>{{ travelInfo.title }}</td>
         </tr>
         <tr>
-          <td>작성자</td>
+          <td class="table-header">작성자</td>
           <td>{{ travelInfo.userId }}</td>
         </tr>
         <tr>
-          <td>작성일</td>
+          <td class="table-header">작성일</td>
           <td>{{ travelInfo.planTime }}</td>
         </tr>
         <tr>
-          <td>내용</td>
+          <td class="table-header">내용</td>
           <td>{{ travelInfo.content }}</td>
         </tr>
       </table>
+
       <b-row class="mb-4">
         <b-col>
           <h1>여행 경로</h1>
         </b-col>
       </b-row>
+
       <table class="table table-hover">
-        <tr v-for="(trm, index) in travelMarkers" :key="index" @click="movePan(trm[0], trm[1])">
+        <tr
+          v-for="(trm, index) in travelMarkers"
+          :key="index"
+          @click="movePan(trm[0], trm[1])"
+        >
           <td>
             <strong>{{ index + 1 }}번</strong>
           </td>
           <td v-if="trm[4].length > 25">
-            <strong>{{ trm[4].substr(0, 25) }}</strong
-            >...
+            <strong>{{ trm[4].substr(0, 25) }}...</strong>
           </td>
           <td v-if="trm[4].length <= 25">
             <strong>{{ trm[4] }}</strong>
@@ -57,7 +63,11 @@ export default {
     };
   },
   computed: {
-    ...mapState("attractionStore", ["travelList", "travelMarkers", "travelPlanId"]),
+    ...mapState("attractionStore", [
+      "travelList",
+      "travelMarkers",
+      "travelPlanId",
+    ]),
   },
   watch: {
     travelPlanId: function (travelPlanId) {
@@ -87,8 +97,8 @@ export default {
 };
 </script>
 
-<style>
-h3 {
+<style scoped>
+h1 {
   margin: 0;
 }
 
@@ -105,8 +115,38 @@ h3 {
   overflow: auto;
 }
 
+table {
+  width: 100%;
+  table-layout: fixed;
+  margin-bottom: 20px;
+}
+
+td {
+  padding: 8px;
+  vertical-align: middle;
+}
+
+.table-header {
+  font-weight: bold;
+  width: 20%;
+  background-color: #f8f9fa;
+}
+
 tr {
   background-color: rgba(255, 255, 255, 0.7);
   cursor: pointer;
+}
+
+tr:hover {
+  background-color: rgba(0, 123, 255, 0.1);
+}
+
+b-col {
+  display: flex;
+  justify-content: center;
+}
+
+b-row {
+  margin-bottom: 20px;
 }
 </style>
