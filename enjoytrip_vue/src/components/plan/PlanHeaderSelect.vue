@@ -1,7 +1,7 @@
 <template>
   <div id="plan-header" class="text-center">
     <div id="plan-header-select" class="container row">
-      <b-col class="col-3 p-1">
+      <b-col class="col-2 p-1">
         <b-form-select
           v-model="doIdx"
           :options="dos"
