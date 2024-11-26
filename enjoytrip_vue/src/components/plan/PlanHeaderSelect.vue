@@ -1,14 +1,21 @@
 <template>
   <div id="plan-header" class="text-center">
     <div id="plan-header-select" class="container row">
-      <b-col class="col-2 p-1">
-        <b-form-select v-model="doIdx" :options="dos" @change="sigunguList"></b-form-select>
+      <b-col class="col-3 p-1">
+        <b-form-select
+          v-model="doIdx"
+          :options="dos"
+          @change="sigunguList"
+        ></b-form-select>
       </b-col>
       <b-col class="col-2 p-1">
         <b-form-select v-model="sigunguIdx" :options="sigungus"></b-form-select>
       </b-col>
       <b-col class="col-2 p-1">
-        <b-form-select v-model="contentTypeId" :options="tourtypes"></b-form-select>
+        <b-form-select
+          v-model="contentTypeId"
+          :options="tourtypes"
+        ></b-form-select>
       </b-col>
       <b-col class="col-4 p-1" style="padding-right: 5px">
         <b-form-input
@@ -20,7 +27,12 @@
         ></b-form-input>
       </b-col>
       <b-col class="col-2 p-1" style="padding-left: 5px">
-        <b-button type="button" variant="primary" class="btn-block" @click="searchAttraction">
+        <b-button
+          type="button"
+          variant="primary"
+          class="btn-block"
+          @click="searchAttraction"
+        >
           검색
         </b-button>
       </b-col>
@@ -45,7 +57,11 @@ export default {
     ...mapState("attractionStore", ["dos", "sigungus", "tourtypes"]),
   },
   methods: {
-    ...mapActions("attractionStore", ["getDo", "getSigungu", "getSearchAttractionList"]),
+    ...mapActions("attractionStore", [
+      "getDo",
+      "getSigungu",
+      "getSearchAttractionList",
+    ]),
     ...mapMutations("attractionStore", [
       "CLEAR_DO_LIST",
       "CLEAR_SIGUNGU_LIST",
