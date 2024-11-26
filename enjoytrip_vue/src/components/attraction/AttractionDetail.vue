@@ -52,7 +52,7 @@ export default {
     };
   },
   computed: {
-    ...mapState("attractionStore", ["attaraction"]),
+    ...mapState("attractionStore", ["attraction"]),
   },
   methods: {
     init() {
