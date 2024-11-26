@@ -14,7 +14,7 @@
             안녕하세요,
             {{ userInfo.userName }} 님.
             <br />
-            여행 계획 서비스
+            여행 계획 공유 서비스
             <br />
             마실입니다.
           </p>
@@ -126,7 +126,7 @@ export default {
         userPwd: null,
       },
       masilTextContent: "M A S I L",
-      descriptionTextContent: "마실 : 이웃에 놀러 다니는 일",
+      descriptionTextContent: "마실 : 이웃에 놀러다니는 일.",
     };
   },
   created() {
@@ -189,7 +189,7 @@ export default {
           masilIndex <= this.masilTextContent.length ||
           descriptionIndex <= this.descriptionTextContent.length
         ) {
-          setTimeout(type, 200);
+          setTimeout(type, 130);
         }
       };
 
