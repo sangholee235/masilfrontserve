@@ -2,13 +2,12 @@
   <div class="main" data-aos="fade-up" data-aos-duration="200">
     <!-- 왼쪽 검은색 영역 -->
     <div class="left-side" style="display: flex; flex-direction: column">
-      <div class="center-text">M A S I L</div>
-      <h3 style="color: gray">마실 : 이웃에 놀러 다니는 일</h3>
+      <div class="center-text" ref="masilText"></div>
+      <h3 ref="descriptionText" style="color: gray"></h3>
     </div>
 
     <!-- 오른쪽 영역 (로그인 폼) -->
     <div class="right-side">
-      <!-- 로그인 폼을 이곳에 삽입 -->
       <b-container class="d-flex justify-content-center">
         <div v-if="userInfo">
           <h2 style="margin-bottom: 30px">
@@ -26,7 +25,6 @@
         <div v-else class="login-wrapper">
           <h1 class="login-title text-center">M A S I L</h1>
           <b-card class="p-4 login-card">
-            <!-- 로그인 실패 시 경고 메시지 -->
             <b-alert
               v-if="isLoginError"
               show
@@ -91,7 +89,6 @@
               >
                 로그인
               </b-button>
-              <!-- 회원가입 버튼 -->
               <b-button
                 type="button"
                 variant="dark"
@@ -100,7 +97,6 @@
               >
                 회원가입
               </b-button>
-              <!-- 비회원으로 이용하기 텍스트 링크 -->
               <router-link to="/attraction" class="guest-link">
                 비회원으로 이용하기
               </router-link>
@@ -124,6 +120,8 @@ export default {
         userId: null,
         userPwd: null,
       },
+      masilTextContent: "M A S I L",
+      descriptionTextContent: "마실 : 이웃에 놀러 다니는 일",
     };
   },
   created() {
@@ -131,6 +129,9 @@ export default {
       this.saveIdCheck = "true";
       this.user.userId = this.$cookies.get("saveid");
     }
+  },
+  mounted() {
+    this.startTypingEffect();
   },
   computed: {
     ...mapState("memberStore", ["isLogin", "isLoginError", "userInfo"]),
@@ -158,43 +159,73 @@ export default {
     goToAttraction() {
       this.$router.push({ path: "/attraction" });
     },
+    startTypingEffect() {
+      const masilElement = this.$refs.masilText;
+      const descriptionElement = this.$refs.descriptionText;
+
+      let masilIndex = 0;
+      let descriptionIndex = 0;
+
+      const type = () => {
+        if (masilIndex < this.masilTextContent.length) {
+          masilElement.textContent += this.masilTextContent[masilIndex++];
+        } else if (descriptionIndex < this.descriptionTextContent.length) {
+          descriptionElement.textContent +=
+            this.descriptionTextContent[descriptionIndex++];
+        } else {
+          setTimeout(() => {
+            masilElement.textContent = "";
+            descriptionElement.textContent = "";
+            masilIndex = 0;
+            descriptionIndex = 0;
+          }, 1000);
+        }
+        if (
+          masilIndex <= this.masilTextContent.length ||
+          descriptionIndex <= this.descriptionTextContent.length
+        ) {
+          setTimeout(type, 200);
+        }
+      };
+
+      type();
+    },
   },
 };
 </script>
 
 <style scoped>
 .main {
-  display: flex; /* 두 개의 영역을 가로로 배치 */
-  height: 100vh; /* 화면 높이에 맞게 설정 */
+  display: flex;
+  height: 100vh;
 }
 
 .left-side {
-  background-color: black; /* 왼쪽 영역 배경 색을 검정으로 설정 */
-  flex: 1; /* 왼쪽 영역이 50%를 차지하도록 설정 */
-  height: 100vh; /* 화면 높이 100% */
+  background-color: black;
+  flex: 1;
+  height: 100vh;
   display: flex;
   justify-content: center;
-  align-items: center; /* 중앙 정렬 */
+  align-items: center;
+  flex-direction: column;
 }
 
 .center-text {
-  font-size: 8rem; /* 큰 글씨로 텍스트 설정 */
-  color: white; /* 흰색 글씨 */
+  font-size: 8rem;
+  color: white;
   font-weight: bold;
 }
 
-/* 오른쪽 영역 스타일 */
 .right-side {
-  flex: 1; /* 오른쪽 영역이 50%를 차지하도록 설정 */
-  height: 100vh; /* 화면 높이 100% */
+  flex: 1;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
 }
 
-/* 로그인 폼 스타일 */
 .login-wrapper {
-  width: 50%; /* 폼의 너비 설정 */
+  width: 50%;
 }
 
 .login-title {
@@ -202,66 +233,6 @@ export default {
   font-weight: bold;
 }
 
-.login-card {
-  border: none;
-  box-shadow: none;
-  border-radius: 0;
-}
-
-.login-error {
-  margin-bottom: 20px;
-  font-size: 0.9rem;
-}
-
-.login-label {
-  font-size: 1rem;
-  font-weight: normal;
-  margin-bottom: 0.5rem;
-}
-
-.login-input {
-  height: 40px;
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-}
-
-.login-checkbox {
-  font-size: 0.9rem;
-  margin: 0;
-}
-
-.login-link {
-  font-size: 0.9rem;
-  color: #6c757d;
-  text-decoration: none;
-}
-
-.login-link:hover {
-  text-decoration: underline;
-}
-
-.login-button,
-.signup-button {
-  width: 100%;
-  padding: 10px 0;
-  font-size: 1rem;
-  font-weight: bold;
-  border: none;
-  border-radius: 5px;
-}
-
-.login-button {
-  background-color: black;
-  color: white;
-}
-
-.signup-button {
-  background-color: black;
-  color: white;
-}
-
-/* 비회원으로 이용하기 텍스트 스타일 */
 .guest-link {
   display: block;
   font-size: 0.8rem;
