@@ -8,7 +8,12 @@
           아이디 또는 비밀번호를 확인하세요.
         </b-alert>
         <b-form>
-          <b-form-group label="아이디" label-for="userid" label-class="login-label" class="mb-3">
+          <b-form-group
+            label="아이디"
+            label-for="userid"
+            label-class="login-label"
+            class="mb-3"
+          >
             <b-form-input
               id="userid"
               v-model="user.userId"
@@ -18,7 +23,12 @@
               class="login-input"
             ></b-form-input>
           </b-form-group>
-          <b-form-group label="비밀번호" label-for="userpwd" label-class="login-label" class="mb-4">
+          <b-form-group
+            label="비밀번호"
+            label-for="userpwd"
+            label-class="login-label"
+            class="mb-4"
+          >
             <b-form-input
               type="password"
               id="userpwd"
