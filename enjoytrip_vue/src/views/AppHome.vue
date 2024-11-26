@@ -10,16 +10,21 @@
     <div class="right-side">
       <b-container class="d-flex justify-content-center">
         <div v-if="userInfo">
-          <h2 style="margin-bottom: 30px">
-            {{ userInfo.userName }} 님 안녕하세요.
-          </h2>
+          <p style="margin-bottom: 30px; font-size: 5em">
+            안녕하세요,
+            {{ userInfo.userName }} 님.
+            <br />
+            여행 계획 서비스
+            <br />
+            마실입니다.
+          </p>
           <b-button
             type="button"
             variant="dark"
             class="btn-block login-button mb-3"
             @click="goToAttraction"
           >
-            마실 가기
+            마실 떠나기
           </b-button>
         </div>
         <div v-else class="login-wrapper">
