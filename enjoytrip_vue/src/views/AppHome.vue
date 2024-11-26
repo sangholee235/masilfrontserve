@@ -121,7 +121,7 @@ export default {
         userPwd: null,
       },
       masilTextContent: "M A S I L",
-      descriptionTextContent: "이웃에 놀러 다니는 일",
+      descriptionTextContent: "마실 : 이웃에 놀러 다니는 일",
     };
   },
   created() {

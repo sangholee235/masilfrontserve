@@ -9,7 +9,7 @@
         >
           <div v-show="menuCompact.hidden">
             <div class="sidebar-links">
-              <h1>MASIL</h1>
+              <h1>M A S I L</h1>
             </div>
           </div>
         </router-link>
